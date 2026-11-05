@@ -1,5 +1,6 @@
 let symbols = ["😻","🙀","🐈‍⬛","🐈"];
 let flippedCards = 0;
+let foundPairs = 0;
 console.log(symbols);
 
 let gameBoard = [];
@@ -20,6 +21,7 @@ function checkPair(){
             flippedPair[0].classList.add("found");
             flippedPair[0].classList.toggle("flipped");
         }
+        foundPairs++;
     }else{
 
         setTimeout(()=>{
@@ -33,6 +35,13 @@ function checkPair(){
     }
 }
 
+function checkGameStatus(){
+    if (foundPairs == gameBoard.length / 2){
+        let winMessage = document.createElement("h2");
+        winMessage.textContent = "You won!";
+        document.getElementById("game-board").appendChild(winMessage);  
+    } 
+}
 
 function flipCard(event){
     let card = event.target;
@@ -47,7 +56,9 @@ function flipCard(event){
     flippedCards++;
     if (flippedCards == 2){
         checkPair();
+
     }
+    checkGameStatus();
 }
 
 function createGame(){
